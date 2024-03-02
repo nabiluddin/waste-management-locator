@@ -12,7 +12,7 @@ function FindFacility() {
   useEffect(() => {
     // Fetch your locations data from the server
     axios
-      .get('http://localhost:5000/location')
+      .get(`${process.env.BACKEND_URL}/location`)
       .then((res) => {
         setLocations(res.data);
       })

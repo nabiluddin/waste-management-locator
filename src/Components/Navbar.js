@@ -25,7 +25,7 @@ function Navbar() {
     const email = user?.primaryEmailAddress.emailAddress;
     if (user) {
     axios
-      .get(`http://localhost:5000/addEmail/${email}`, {
+      .get(`${process.env.BACKEND_URL}/addEmail/${email}`, {
         params: {
           email: user.email, // Pass the user's email to the API request
         },

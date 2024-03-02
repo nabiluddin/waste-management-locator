@@ -14,7 +14,7 @@ const RedeemPopup = () => {
   const handleClose = async() => {
     setIsOpen(false);
     // try {
-    //   await axios.post('http://localhost:5000/addEmail/send-email', {
+    //   await axios.post(`${process.env.BACKEND_URL}/addEmail/send-email`, {
     //     to: user?.primaryEmailAddress.emailAddress, // Replace with the recipient email
     //     subject: 'Successfully redemption of prize',
     //     body: 'You have successfully redeemed your points to order the prize. Your order has been created successfully, and it will be delivered in 7 days. Thanks for shopping!',

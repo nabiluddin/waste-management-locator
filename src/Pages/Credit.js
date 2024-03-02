@@ -53,7 +53,7 @@ function Credit() {
       const clerkEmailId = user?.primaryEmailAddress.emailAddress;
       const addEmailToDatabase = async (email) => {
         try {
-          const response = await axios.post('http://localhost:5000/addEmail', { email });
+          const response = await axios.post(`${process.env.BACKEND_URL}/addEmail`, { email });
 
           if (response.status === 201) {
             console.log('Email added to the database.');
@@ -103,8 +103,8 @@ function Credit() {
         if(points===0){
           openPopUp();
         }else{
-          const response = await axios.post('http://localhost:5000/addEmail/authenticate', { email, item, isSubmitted, points, count });
-          await axios.post('http://localhost:5000/addEmail/updatePoints', { email, points });
+          const response = await axios.post(`${process.env.BACKEND_URL}/addEmail/authenticate`, { email, item, isSubmitted, points, count });
+          await axios.post(`${process.env.BACKEND_URL}/addEmail/updatePoints`, { email, points });
           if (response.status === 200) {
               console.log('Data goes to Facility from frontend');
               setCreditSuccess(true);
@@ -128,7 +128,7 @@ function Credit() {
         const email = user?.primaryEmailAddress.emailAddress;
         // Send the email and points to your backend
         axios
-        .get(`http://localhost:5000/addEmail/${email}`, {
+        .get(`${process.env.BACKEND_URL}/addEmail/${email}`, {
           params: {
             email: user.email,
           },
@@ -138,7 +138,7 @@ function Credit() {
             alert("Total Points is less than the item points");
             window.location.reload(); // Refresh the page
           }else{
-            axios.post('http://localhost:5000/addEmail/reducePoints', { email, points: redeemPoints })
+            axios.post(`${process.env.BACKEND_URL}/addEmail/reducePoints`, { email, points: redeemPoints })
             .then(response => {
               // Handle the successful response
               console.log('Points updated successfully', response);

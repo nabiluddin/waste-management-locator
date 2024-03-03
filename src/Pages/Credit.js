@@ -6,6 +6,7 @@ import { Container, Row, Col, Form, Button, Image } from 'react-bootstrap';
 import '../App.css'
 import axios from 'axios';
 
+
 import img1 from "../assets/rewards/1.jpg";
 import img2 from "../assets/rewards/2.jpg";
 import img3 from "../assets/rewards/3.jpg";
@@ -53,7 +54,7 @@ function Credit() {
       const clerkEmailId = user?.primaryEmailAddress.emailAddress;
       const addEmailToDatabase = async (email) => {
         try {
-          const response = await axios.post(`${process.env.BACKEND_URL}/addEmail`, { email });
+          const response = await axios.post(`https://waste-management-locator.onrender.com/addEmail`, { email });
 
           if (response.status === 201) {
             console.log('Email added to the database.');
@@ -103,8 +104,8 @@ function Credit() {
         if(points===0){
           openPopUp();
         }else{
-          const response = await axios.post(`${process.env.BACKEND_URL}/addEmail/authenticate`, { email, item, isSubmitted, points, count });
-          await axios.post(`${process.env.BACKEND_URL}/addEmail/updatePoints`, { email, points });
+          const response = await axios.post(`https://waste-management-locator.onrender.com/addEmail/authenticate`, { email, item, isSubmitted, points, count });
+          await axios.post(`https://waste-management-locator.onrender.com/addEmail/updatePoints`, { email, points });
           if (response.status === 200) {
               console.log('Data goes to Facility from frontend');
               setCreditSuccess(true);
@@ -128,7 +129,7 @@ function Credit() {
         const email = user?.primaryEmailAddress.emailAddress;
         // Send the email and points to your backend
         axios
-        .get(`${process.env.BACKEND_URL}/addEmail/${email}`, {
+        .get(`https://waste-management-locator.onrender.com/addEmail/${email}`, {
           params: {
             email: user.email,
           },
@@ -138,7 +139,7 @@ function Credit() {
             alert("Total Points is less than the item points");
             window.location.reload(); // Refresh the page
           }else{
-            axios.post(`${process.env.BACKEND_URL}/addEmail/reducePoints`, { email, points: redeemPoints })
+            axios.post(`https://waste-management-locator.onrender.com/addEmail/reducePoints`, { email, points: redeemPoints })
             .then(response => {
               // Handle the successful response
               console.log('Points updated successfully', response);

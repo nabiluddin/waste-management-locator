@@ -12,7 +12,7 @@ function FindFacility() {
   useEffect(() => {
     // Fetch your locations data from the server
     axios
-      .get(`${process.env.BACKEND_URL}/location`)
+      .get(`https://waste-management-locator.onrender.com/location`)
       .then((res) => {
         setLocations(res.data);
       })

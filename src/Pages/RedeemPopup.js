@@ -28,7 +28,7 @@ const RedeemPopup = () => {
   return (
     isOpen && (
       <div className="no-data-popup">
-        <img src={img1} style={{ width: '50px' }} />
+        <img src={img1} style={{ width: '50px' }} alt='' />
         <p>Points Reedemed Sucessfully</p>
         <button onClick={handleClose}>Close</button>
       </div>

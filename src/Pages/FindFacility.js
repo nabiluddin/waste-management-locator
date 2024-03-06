@@ -3,12 +3,14 @@ import Navbar from '../Components/Navbar';
 import axios from 'axios';
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl.js';
 import '../App.css'
+import locationsData from '../assets/locations.json';
 
 function FindFacility() {
   const [locations, setLocations] = useState([]);
   const [userLocation, setUserLocation] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(null);
 
+  
   useEffect(() => {
     // Fetch your locations data from the server
     axios
@@ -44,7 +46,14 @@ function FindFacility() {
 
     // Add markers for each location
     locations.forEach((item) => {
-      const marker = new mapboxgl.Marker().setLngLat([item.longitude, item.latitude]).addTo(map);
+      let marker = new mapboxgl.Marker({ color: 'red' }).setLngLat([item.longitude, item.latitude]).addTo(map);
+
+      // Create a popup with the location's name
+      const popup = new mapboxgl.Popup({ offset: 25 })
+        .setHTML(`<h6>${item.name}</h6> <p>${item.address}</p>`);
+
+      // Attach the popup to the marker
+      marker.setPopup(popup);
 
       // Add click event to set the selected location
       marker.getElement().addEventListener('click', () => {
@@ -65,9 +74,6 @@ function FindFacility() {
 
   const handleGetDirections = () => {
     if (userLocation && selectedLocation) {
-      const origin = `${userLocation.longitude},${userLocation.latitude}`;
-      const destination = `${selectedLocation.longitude},${selectedLocation.latitude}`;
-
       window.open(`https://www.google.com/maps/dir/?api=1&origin=${userLocation.latitude} ${userLocation.longitude}&destination=${selectedLocation.latitude} ${selectedLocation.longitude}`, '_blank');
     }
   };
@@ -75,9 +81,9 @@ function FindFacility() {
   return (
     <div>
       <Navbar />
-      <div id='map' style={{ width: '100%', height: '600px' }}></div>
+      <div id='map' style={{ width: '100%', height: '550px' }}></div>
       {selectedLocation && (
-        <button className='button-28' onClick={handleGetDirections} style={{ marginTop: '10px' }}>
+        <button className='button-28' onClick={handleGetDirections}>
           Get Directions
         </button>
       )}

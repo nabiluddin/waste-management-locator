@@ -31,7 +31,6 @@ function Navbar() {
         },
       })
       .then((response) => {
-        console.log(response)
         setUserPoints(response.data.points);
       })
       .catch((error) => {
